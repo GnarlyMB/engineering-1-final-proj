@@ -1,3 +1,0 @@
-x = "goon";
-
-fprintf(x)
