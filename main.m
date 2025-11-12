@@ -1,0 +1,3 @@
+x = "goon";
+
+fprintf(x)
