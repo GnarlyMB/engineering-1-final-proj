@@ -26,23 +26,27 @@ drawScene(scene, displayBox, treeBox)
 while true
     input = scene.getKeyboardInput();
     if strcmp(input, 'uparrow') 
-        i = i - 1;
         displayBox(i, j) = 1;
+        drawScene(scene, displayBox, treeBox);
+        i = i - 1;
         displayBox(i, j) = spriteIndex;
         drawScene(scene, displayBox, treeBox);
     elseif strcmp(input, 'downarrow')
-        i = i + 1;
         displayBox(i, j) = 1;
+        drawScene(scene, displayBox, treeBox);
+        i = i + 1;
         displayBox(i, j) = spriteIndex;
         drawScene(scene, displayBox, treeBox);
     elseif strcmp(input, 'rightarrow')
-        j = j + 1;
         displayBox(i, j) = 1;
+        drawScene(scene, displayBox, treeBox);
+        j = j + 1;
         displayBox(i, j) = spriteIndex;
         drawScene(scene, displayBox, treeBox);
     elseif strcmp(input, 'leftarrow') 
-        j = j - 1;
         displayBox(i, j) = 1;
+        drawScene(scene, displayBox, treeBox);
+        j = j - 1;
         displayBox(i, j) = spriteIndex;
         drawScene(scene, displayBox, treeBox);
     elseif strcmp(input, 's')
