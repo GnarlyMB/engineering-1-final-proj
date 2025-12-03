@@ -7,9 +7,6 @@ classdef createProblems
     end
 
     methods
-        function [num1] = createNumbers()
-            num1 = randi(10);
-        end
 
         function [correct] = buildCorrect(num1, num2)
             %build the numbers + answer
@@ -24,6 +21,13 @@ classdef createProblems
                 wrong = possible
             end
         end
+    end
+
+     methods(Static)
+
+        function [num1] = createNumbers()
+            num1 = randi(10);
+        end
 
         function output = buildOutput()
             number1 = createNumbers();
@@ -32,6 +36,7 @@ classdef createProblems
             wrong1 = buildWrong(correct)
             wrong2 = buildWrong(correct)
             output = [correct, wrong1, wrong2]
+            Property1 = output
         end
     end
 end
