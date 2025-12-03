@@ -3,17 +3,29 @@ classdef createProblems
     %   Detailed explanation goes here
 
     properties
-        Property1
+        Property1 = []
     end
 
-    methods
-        function [num1, num2] = createNumbers()
-            num1 = randi(10)
-            num2 = randi(10)
+    methods(Static)
+
+        function wrong = buildWrong(correct)
+            possible = randi(100);
+            if possible == correct
+                buildWrong(correct)
+            else
+                wrong = possible;
+            end
         end
 
-        function output = buildProblem(num1, num2)
-            %build the numbers + answer
-        end
+
+
+            function output = buildOutput()
+                number1 = randi(10);
+                number2 = randi(10);
+                correct = number1 * number2;
+                wrong1 = createProblems.buildWrong(correct);
+                wrong2 = createProblems.buildWrong(correct);
+                output = [correct, wrong1, wrong2];
+            end
     end
 end

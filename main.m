@@ -4,4 +4,6 @@ clear all
 
 sprite = simpleGameEngine('retro_pack.png', 16, 16, 3, [0, 0, 0]);
 
-create
+b = createProblems;
+
+b.buildOutput
