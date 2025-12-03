@@ -10,6 +10,8 @@ spriteIndex = 243;
 trees = 34;
 i = 15;
 j = 17;
+questionPosI = [];
+questionPosJ = [];
 
 
 displayBox(i, j) = spriteIndex;
@@ -46,6 +48,8 @@ while true
     elseif strcmp(input, 's')
         disp("Game stopped.");
         break;
+    elseif strcmp(input, 'space')
+        questionActivateFunction(i, j, questionPosI, questionPosJ);
     else
         drawScene(scene, displayBox, treeBox);
     end
