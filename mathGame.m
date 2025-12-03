@@ -91,7 +91,7 @@ classdef mathGame < simpleGameEngine
 
                 if row == 2 && col >= 2 && col <= 4
                     chosenIdx = col - 1;
-                    
+                    pass
             end
             
             
