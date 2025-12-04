@@ -1,6 +1,6 @@
-clear
-close
-clear all
+clc
+close all
+clear 
 
 %initialize the scene
 scene = simpleGameEngine('retro_pack.png', 16, 16, 4, [6, 64, 43]);
