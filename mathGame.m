@@ -69,6 +69,21 @@ classdef mathGame < simpleGameEngine
 
             bg = ones(5, 5);
 
+            scoreStr = sprintf("%d/%d", obj.score, obj.total);
+            scoreCol = 1;
+
+            for j = 1:length(scoreStr)
+                charVal = scoreStr(j);
+                if charVal >= '0' && charVal <= '9'
+                    digit = str2double(charVal);
+                    bg(1, scoreCol) = obj.digitToSprite(digit);
+                    scoreCol = scoreCol + 1; 
+                elseif strcmp(charVal, '/')
+                    bg(1, scoreCol) = 1;
+                    scoreCol = scoreCol + 1;
+                end
+            end
+
             [n1t, n1o] = obj.splitNumber(n1);
             bg(1,1) = obj.digitToSprite(n1t);
             bg(1,2) = obj.digitToSprite(n1o);
@@ -98,19 +113,23 @@ classdef mathGame < simpleGameEngine
                 end
             end
 
+            fprintf("Building...\n %d sprites\n", numel(obj.sprites))
             obj.drawScene(bg);
+            fprintf("\nScene Drawn\n")
 
             obj.answers = answers;
             obj.correctIndex = correctIndex;
         end
 
         function play(obj)
+            obj.drawCurrentProblem();
+            
             while obj.currentProblem <= size(obj.problems, 1)
-                obj.drawCurrentProblem();
+                
                 [row, col, ~] = obj.getMouseInput();
 
-                if row == 2 && col >= 3 && col <= 5
-                    chosenIdx = col - 1;
+                if row == 3 && col >= 2 && col <= 4
+                    chosenIdx = row - 2;
                     answers = obj.answers;
                     correctIx = obj.correctIndex;
                     chosenVal = answers(chosenIdx);
@@ -121,8 +140,18 @@ classdef mathGame < simpleGameEngine
                     else
                         fprintf("Incorrect. The answer was %d\n", answers(correctIx))
                     end
+                    
                     obj.currentProblem = obj.currentProblem + 1;
 
+                    if obj.currentProblem <= size(obj.problems, 1)
+                        obj.drawCurrentProblem();
+                    else
+                        break;
+                    end
+
+                else
+                    obj.drawCurrentProblem();
+                    
                 end
             
             
