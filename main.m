@@ -2,9 +2,6 @@ clc
 close all
 clear 
 
-b = mathGame;
-
-
-b.play();
+startingScreen = simpleGameEngine('retro_pack.png', 16, 16, 3, [0, 0, 0]);
 
 

@@ -66,25 +66,25 @@ size(foregroundBox)
 drawScene(scene, displayBox, foregroundBox)
 while true
     input = scene.getKeyboardInput();
-    if strcmp(input, 'uparrow') & i - 1 > 0
+    if strcmp(input, 'uparrow') & i - 1 > 1
         displayBox(i, j) = 1;
         drawScene(scene, displayBox, foregroundBox);
         i = i - 1;
         displayBox(i, j) = spriteIndex;
         drawScene(scene, displayBox, foregroundBox);
-    elseif strcmp(input, 'downarrow') & i + 1 < 19
+    elseif strcmp(input, 'downarrow') & i + 1 < 18
         displayBox(i, j) = 1;
         drawScene(scene, displayBox, foregroundBox);
         i = i + 1;
         displayBox(i, j) = spriteIndex;
         drawScene(scene, displayBox, foregroundBox);
-    elseif strcmp(input, 'rightarrow') & j + 1 < 33
+    elseif strcmp(input, 'rightarrow') & j + 1 < 32
         displayBox(i, j) = 1;
         drawScene(scene, displayBox, foregroundBox);
         j = j + 1;
         displayBox(i, j) = spriteIndex;
         drawScene(scene, displayBox, foregroundBox);
-    elseif strcmp(input, 'leftarrow') & j - 1 > 0
+    elseif strcmp(input, 'leftarrow') & j - 1 > 1
         displayBox(i, j) = 1;
         drawScene(scene, displayBox, foregroundBox);
         j = j - 1;
