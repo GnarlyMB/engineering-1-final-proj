@@ -62,8 +62,10 @@ foregroundBox(1, 32) = 435; %top right
 foregroundBox(18, 1) = 497; %bottom left
 foregroundBox(18, 32) = 499; %bottom right
 
-size(foregroundBox)
 drawScene(scene, displayBox, foregroundBox)
+
+%Main loop for movement, checks for keyboard input and redraws the sprite
+%if needed. S will stop the game and close everything.
 while true
     input = scene.getKeyboardInput();
     if strcmp(input, 'uparrow') & i - 1 > 1
@@ -92,6 +94,7 @@ while true
         drawScene(scene, displayBox, foregroundBox);
     elseif strcmp(input, 's')
         disp("Game stopped.");
+        close all
         break;
     elseif strcmp(input, 'space')
         questionActivateFunction(i, j, questionPosI, questionPosJ);
