@@ -12,6 +12,7 @@ classdef createProblems
             output = [number1, number2, correct, wrong1, wrong2];
         end
 
+        
         function wrong = buildWrong(correct)
             %No shot recursion worked for this lmao
             possible = randi(101);
