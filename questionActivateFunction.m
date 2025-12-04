@@ -10,6 +10,7 @@ game = mathGame;
                 %activate question and call script.
                 game.play();
                 close Figure 2
+                
             end
         end
     end
