@@ -72,21 +72,6 @@ classdef mathGame < simpleGameEngine
 
             bg = ones(5, 5);
 
-            %Scoreboard
-            scoreStr = sprintf("%d/%d", obj.score, obj.total);
-            scoreCol = 4;
-
-            for j = 1:length(scoreStr)
-                charVal = scoreStr(j);
-                if charVal >= '0' && charVal <= '9'
-                    digit = str2double(charVal);
-                    bg(1, scoreCol) = obj.digitToSprite(digit);
-                    scoreCol = scoreCol + 1; 
-                elseif strcmp(charVal, '/')
-                    bg(5, scoreCol) = 1;
-                    scoreCol = scoreCol + 1;
-                end
-            end
 
             [n1t, n1o] = obj.splitNumber(n1);
             bg(1,1) = obj.digitToSprite(n1t);
