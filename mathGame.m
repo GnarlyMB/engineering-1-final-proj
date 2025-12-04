@@ -12,6 +12,10 @@ classdef mathGame < simpleGameEngine
         spritePlus
         spriteEquals
         spriteAnswerBase
+
+
+        answers
+        correctIndex
     end
 
     methods
@@ -21,12 +25,12 @@ classdef mathGame < simpleGameEngine
             spriteH = 16;
             spriteW = 16;
             zoom = 4;
-            bgColor = [240 240 240];
+            bgColor = [0 0 0];
             obj@simpleGameEngine("retro_pack.png", spriteH, spriteW, zoom, bgColor);
 
-            obj.spriteDigit0 = 500;
-            obj.spritePlus = 510;
-            obj.spriteEquals = 511;
+            obj.spriteDigit0 = 948;
+            obj.spritePlus = 825;
+            obj.spriteEquals = 958;
             obj.spriteAnswerBase = 520;
             obj.problems = obj.generateProblems(5);
         end
@@ -34,7 +38,7 @@ classdef mathGame < simpleGameEngine
         function problems = generateProblems(obj, n)
             problems = zeros(n, 5);
             for k = 1:n
-                problems(k,:) = createProblems.buildOutput()
+                problems(k,:) = createProblems.buildOutput();
             end
         end
 
@@ -42,10 +46,10 @@ classdef mathGame < simpleGameEngine
             id = obj.spriteDigit0 + d;
         end
         
-        function [tens, ones] = splitNumber(~, n)
-            n = max(0, min(99));
+        function [tens, onesDigit] = splitNumber(~, n)
+            n = max(0, min(n, 99));
             tens = floor(n/10);
-            ones = mod(n, 10);
+            onesDigit = mod(n, 10);
         end
         function drawCurrentProblem(obj)
         
@@ -63,11 +67,12 @@ classdef mathGame < simpleGameEngine
 
             obj.total = max(obj.total, obj.currentProblem);
 
-            bg = zeros(3, 6);
+            bg = ones(5, 5);
 
             [n1t, n1o] = obj.splitNumber(n1);
             bg(1,1) = obj.digitToSprite(n1t);
             bg(1,2) = obj.digitToSprite(n1o);
+            bg(2, 1) = obj.spriteEquals;
             bg(1,3) = obj.spritePlus;
 
             [n2t, n2o] = obj.splitNumber(n2);
@@ -75,13 +80,28 @@ classdef mathGame < simpleGameEngine
             bg(1,5) = obj.digitToSprite(n2o);
 
             for i = 1:3
-                bg(2, 1+i) = obj.spriteAnswerBase + (i - 1);
+                bg(2 + i, 2) = obj.spriteAnswerBase + (i - 1);
+            end
+            
+            for i = 1:3
+                val = answers(i);
+                [tens, onesDigit] = obj.splitNumber(val);
+
+                r = 2 + i;
+                c0 = 3;
+                if val < 10
+                    bg(r, c0) = obj.digitToSprite(onesDigit);
+                    bg(r, c0-1) = 1;
+                else
+                    bg(r, c0-1) = obj.digitToSprite(tens);
+                    bg(r, c0) = obj.digitToSprite(onesDigit);
+                end
             end
 
             obj.drawScene(bg);
 
-            obj.UserData.answers = answers;
-            obj.UserData.correctIndex = correctIndex;
+            obj.answers = answers;
+            obj.correctIndex = correctIndex;
         end
 
         function play(obj)
@@ -89,12 +109,26 @@ classdef mathGame < simpleGameEngine
                 obj.drawCurrentProblem();
                 [row, col, ~] = obj.getMouseInput();
 
-                if row == 2 && col >= 2 && col <= 4
+                if row == 2 && col >= 3 && col <= 5
                     chosenIdx = col - 1;
-                    pass
+                    answers = obj.answers;
+                    correctIx = obj.correctIndex;
+                    chosenVal = answers(chosenIdx);
+
+                    if chosenIdx == correctIx
+                        obj.score = obj.score + 1;
+                        fprintf("Correct! %d\n", chosenVal);
+                    else
+                        fprintf("Incorrect. The answer was %d\n", answers(correctIx))
+                    end
+                    obj.currentProblem = obj.currentProblem + 1;
+
+                end
+            
+            
             end
-            
-            
+            fprintf("Final score: %d / %d\n", obj.score, size(obj.problems,1));
         end
+        
     end
 end
