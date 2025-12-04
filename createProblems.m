@@ -14,7 +14,7 @@ classdef createProblems
 
         function wrong = buildWrong(correct)
             %No shot recursion worked for this lmao
-            possible = randi(100);
+            possible = randi(101);
             if possible == correct
                 buildWrong(correct)
             else
