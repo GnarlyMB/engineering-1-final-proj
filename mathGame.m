@@ -30,7 +30,7 @@ classdef mathGame < simpleGameEngine
 
             obj.spriteDigit0 = 948;
             obj.spritePlus = 825;
-            obj.spriteEquals = 958;
+            obj.spriteEquals = 1;
             obj.spriteAnswerBase = 520;
             obj.problems = obj.generateProblems(5);
         end
@@ -70,7 +70,7 @@ classdef mathGame < simpleGameEngine
             bg = ones(5, 5);
 
             scoreStr = sprintf("%d/%d", obj.score, obj.total);
-            scoreCol = 1;
+            scoreCol = 4;
 
             for j = 1:length(scoreStr)
                 charVal = scoreStr(j);
@@ -79,7 +79,7 @@ classdef mathGame < simpleGameEngine
                     bg(1, scoreCol) = obj.digitToSprite(digit);
                     scoreCol = scoreCol + 1; 
                 elseif strcmp(charVal, '/')
-                    bg(1, scoreCol) = 1;
+                    bg(5, scoreCol) = 1;
                     scoreCol = scoreCol + 1;
                 end
             end
@@ -128,7 +128,7 @@ classdef mathGame < simpleGameEngine
                 
                 [row, col, ~] = obj.getMouseInput();
 
-                if row == 3 && col >= 2 && col <= 4
+                if col == 2 && row >= 3 && row <= 5
                     chosenIdx = row - 2;
                     answers = obj.answers;
                     correctIx = obj.correctIndex;
@@ -149,9 +149,7 @@ classdef mathGame < simpleGameEngine
                         break;
                     end
 
-                else
-                    obj.drawCurrentProblem();
-                    
+
                 end
             
             
