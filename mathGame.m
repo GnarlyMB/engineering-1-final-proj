@@ -1,7 +1,6 @@
 classdef mathGame < simpleGameEngine
-    %MATHGAME Summary of this class goes here
-    %   Detailed explanation goes here
-
+    %MATHGAME A class containing the main gameplay loop and a method to
+    %call it.
     properties
         problems
         currentProblem = 1
@@ -20,8 +19,8 @@ classdef mathGame < simpleGameEngine
 
     methods
         function obj = mathGame()
-            %MATHGAME Construct an instance of this class
-            %   Detailed explanation goes here
+            %MATHGAME Initialize used variables
+            
             spriteH = 16;
             spriteW = 16;
             zoom = 4;
@@ -36,6 +35,7 @@ classdef mathGame < simpleGameEngine
         end
 
         function problems = generateProblems(obj, n)
+            %Generate a random problem
             problems = zeros(n, 5);
             for k = 1:n
                 problems(k,:) = createProblems.buildOutput();
@@ -47,11 +47,13 @@ classdef mathGame < simpleGameEngine
         end
         
         function [tens, onesDigit] = splitNumber(~, n)
+            %split number into the prp
             n = max(0, min(n, 99));
             tens = floor(n/10);
             onesDigit = mod(n, 10);
         end
         function drawCurrentProblem(obj)
+            %Build the display for the new problem
         
             prob = obj.problems(obj.currentProblem, :);
             n1 = prob(1);
@@ -60,6 +62,7 @@ classdef mathGame < simpleGameEngine
             wrong1 = prob(4);
             wrong2 = prob(5);
 
+            %randomize where the correct answer is and map it
             answers = [correct, wrong1, wrong2];
             order = randperm(3);
             answers = answers(order);
@@ -69,6 +72,7 @@ classdef mathGame < simpleGameEngine
 
             bg = ones(5, 5);
 
+            %Scoreboard
             scoreStr = sprintf("%d/%d", obj.score, obj.total);
             scoreCol = 4;
 
@@ -122,6 +126,7 @@ classdef mathGame < simpleGameEngine
         end
 
         function play(obj)
+            %start game loop and draw each new problem
             obj.drawCurrentProblem();
             
             while obj.currentProblem <= size(obj.problems, 1)
